@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارتش تاریک - ورود مخفیانه</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 40px;
+            text-shadow: 2px 2px 5px lime;
+            margin-top: 20px;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 10px auto;
+            width: 300px;
+            border: 2px solid lime;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 90%;
+            border: 1px solid lime;
+            background: black;
+            color: lime;
+            font-size: 18px;
+        }
+
+        button {
+            background: lime;
+            color: black;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        .matrix-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: black;
+            color: lime;
+            font-size: 16px;
+            font-family: monospace;
+            display: block;
+            animation: matrix 0.5s infinite;
+        }
+
+        @keyframes matrix {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        .matrix-line {
+            position: absolute;
+            top: -100%;
+            width: 100%;
+            text-align: center;
+            white-space: nowrap;
+            animation: drop 0.5s linear infinite;
+        }
+
+        @keyframes drop {
+            0% {
+                top: -100%;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>⚠️ ارتش تاریک - ورود مخفیانه ⚠️</h1>
+
+    <!-- صفحات لاگین -->
+    <div class="login-box" id="login1">
+        <h2>ورود 1</h2>
+        <input type="text" id="username1" placeholder="نام کاربری">
+        <input type="password" id="password1" placeholder="رمز عبور">
+        <button onclick="checkLogin(1)">ورود</button>
+    </div>
+
+    <div class="login-box" id="login2">
+        <h2>ورود 2</h2>
+        <input type="text" id="username2" placeholder="نام کاربری">
+        <input type="password" id="password2" placeholder="رمز عبور">
+        <button onclick="checkLogin(2)">ورود</button>
+    </div>
+
+    <div class="login-box" id="login3">
+        <h2>ورود 3</h2>
+        <input type="text" id="username3" placeholder="نام کاربری">
+        <input type="password" id="password3" placeholder="رمز عبور">
+        <button onclick="checkLogin(3)">ورود</button>
+    </div>
+
+    <!-- پس زمینه ماتریکس -->
+    <div class="matrix-background">
+        <div class="matrix-line">1 0 1 1 0 1 1 0 1 0</div>
+        <div class="matrix-line" style="animation-delay: 0.2s;">0 1 0 1 1 1 0 0 1 0</div>
+        <div class="matrix-line" style="animation-delay: 0.4s;">1 0 1 0 1 1 0 1 1 0</div>
+        <div class="matrix-line" style="animation-delay: 0.6s;">0 1 1 1 0 1 1 0 1 1</div>
+        <div class="matrix-line" style="animation-delay: 0.8s;">1 0 0 1 1 0 1 0 1 0</div>
+        <div class="matrix-line" style="animation-delay: 1s;">1 1 0 1 0 1 0 0 1 1</div>
+    </div>
+
+    <script>
+        let attempts = [0, 0, 0]; // تعداد تلاش‌های ورود اشتباه برای هر فرم
+
+        const credentials = [
+            {username: "army", password: "army123", redirect: "https://t.me/YourChannel1"},
+            {username: "ghost", password: "ghost321", redirect: "https://t.me/YourChannel2"},
+            {username: "blackhawk", password: "hawk999", redirect: "https://t.me/YourChannel3"}
+        ];
+
+        function checkLogin(formIndex) {
+            let username = document.getElementById(`username${formIndex}`).value;
+            let password = document.getElementById(`password${formIndex}`).value;
+
+            if (username === credentials[formIndex - 1].username && password === credentials[formIndex - 1].password) {
+                window.location.href = credentials[formIndex - 1].redirect;
+            } else {
+                attempts[formIndex - 1]++;
+                if (attempts[formIndex - 1] >= 2) {
+                    alert("❌ دو بار اطلاعات اشتباه وارد شد. به صفحه هشدار منتقل می‌شوید.");
+                    window.location.href = "warning.html"; // لینک به صفحه هشدار
+                } else {
+                    alert("❌ دسترسی غیرمجاز! اطلاعات نادرست است.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
